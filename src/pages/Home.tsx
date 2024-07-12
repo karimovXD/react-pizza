@@ -15,7 +15,6 @@ import { AppDispatch, RootState } from "../redux/store";
 
 const Home: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const [isMount, setIsMount] = React.useState<false | true>(false);
 
   const { pizzas, status } = useSelector(
     (state: RootState) => state.pizzasSlice
@@ -34,13 +33,7 @@ const Home: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (isMount) {
-      const json = JSON.stringify(pizzas);
-      localStorage.setItem("pizzas", json);
-    }
-    setIsMount(true);
     handleGetPizzas();
-    console.log(pizzas);
   }, [categoryIndex, sortBy]);
 
   return (

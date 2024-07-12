@@ -1,17 +1,38 @@
-import React from "react";
+import { lazy, Suspense, FC } from "react";
 import { Routes, Route } from "react-router-dom";
 
 //pages
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import Cart from "./pages/Cart";
+const Cart = lazy(() => import("./pages/Cart"));
+const Home = lazy(() => import("./pages/Home"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-const App: React.FC = () => { 
+const App: FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="/"
+        element={
+          <Suspense fallback={<div>Идёт загрузка...</div>}>
+            <Home />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <Suspense fallback={<div>Идёт загрузка...</div>}>
+            <Cart />
+          </Suspense>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <Suspense fallback={<div>Идёт загрузка...</div>}>
+            <NotFound />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 };
